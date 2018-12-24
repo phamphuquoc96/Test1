@@ -1,31 +1,83 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet, TextInput, Keyboard} from 'react-native';
-import Button from './Button';
+import {Button} from './Button';
 
 export default class LoginForm extends Component {
     constructor(props) {
         super(props);
     }
 
+    state = {email: '', status: '', colorOfTextText: '#000000'};
+
+    onButtonPress() {
+        console.log("pressed");
+        console.log(this.state.email);
+
+        const {email} = this.state;
+
+        if (email == 'M004') {
+            this.setState({status: 'Success'})
+        }
+        else {
+            this.setState({status: 'Mã khách hàng không chính '})
+        }
+        ;
+        this.setState({
+            email: '',
+        });
+    }
+
+    renderButton() {
+        return (
+            <Button onPress={this.onButtonPress.bind(this)}>
+                Đăng Nhập
+            </Button>
+        );
+    }
+
+    settextcolor(email) {
+        this.setState({email})
+        this.setState({status: ''})
+        if (email.length < 1) {
+            {
+                this.setState({colorOfTextText: '#000000'})
+            }
+        } else {
+            {
+                this.setState({colorOfTextText: '#1279ff'})
+            }
+        }
+    }
+
     render() {
         return (
             <View
                 style={style.container}>
-                <Text>Mã khách hàng</Text>
+                <Text style={{color: this.state.colorOfTextText}}>Mã khách hàng</Text>
                 <TextInput
                     style={style.inputstyle}
-                    keyboardType = 'default'
+                    keyboardType='default'
                     placeholder='Nhap ma'
-                    onSubmitEditing={Keyboard.dismiss()}
+                    onChangeText={email => {
+                        this.settextcolor(email)
+                    }}
                 />
+                <Text style={styles.errorStyle}>
+                    {this.state.status}
+                </Text>
                 <View>
-                    <Button>dang nhap</Button>
+                    {this.renderButton()}
                 </View>
             </View>
         )
     }
 }
-
+const styles = {
+    errorStyle: {
+        fontSize: 15,
+        color: 'red'
+    }
+};
 const style = StyleSheet.create({
     inputstyle: {
         height: 40,
@@ -38,6 +90,6 @@ const style = StyleSheet.create({
     container: {
         marginLeft: 20,
         marginRight: 20,
-        marginTop: 150,
+        marginTop: 200,
     }
 })
