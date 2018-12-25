@@ -19,7 +19,7 @@ const styles = {
         textAlign:'center',
         // backgroundColor:'#3adcff',
         position:'relative',
-        elevation:2
+        elevation:1
     },
     viewStyle:{
         height:70,
@@ -30,6 +30,7 @@ const styles = {
         shadowOffset:{width:0,height:2},
         shadowColor:'#000',
         shadowOpacity:0.2,
+        elevation: 1
 
 
     }
