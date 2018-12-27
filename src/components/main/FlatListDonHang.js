@@ -12,6 +12,20 @@ class FlatListDonHang extends Component {
         };
     }
 
+    GuiDonHang = () => {
+        this.setState({tong: 0})
+        var date = new Date().getDate();
+        var month = new Date().getMonth() + 1;
+        var year = new Date().getFullYear();
+        var s = (date + '-' + month + '-' + year);
+        this.props.dispatch({
+            type: 'GUI_HANG',
+            mdate: s,
+            mtien: this.state.tong,
+            arrdonhang: this.props.arrData
+        })
+    }
+
     tinhtong() {
         let tong = 0;
         for (let dataObject of this.props.arrData) {
@@ -84,6 +98,7 @@ class FlatListDonHang extends Component {
                         // backgroundColor: '#cb43ff'
                     }}>
                         <TouchableOpacity
+                            onPress={this.GuiDonHang}
                             style={{
                                 flex: 1,
                                 justifyContent: 'center',

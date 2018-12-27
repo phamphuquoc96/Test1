@@ -4,6 +4,20 @@ import {connect} from 'react-redux';
 import FlatListItem from './FlatListItem';
 
 class FlatListData extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            tukhoa: '',
+        };
+    }
+
+    tikiem(tukhoa) {
+        this.props.dispatch({
+            type: 'TIM_KIEM',
+            tukhoa: tukhoa
+        })
+    }
+
     render() {
         return (
             <ScrollView style={{
@@ -39,17 +53,24 @@ class FlatListData extends Component {
                     }}
                                keyboardType='default'
                                placeholder='Tìm kiếm'
+                               onChangeText={(text) => this.tikiem(text)}
+
                     />
-                    <Image
-                        style={{
-                            flex: 1,
-                            marginRight: 10,
-                            height: 15,
-                            width: 15,
-                            resizeMode: 'contain'
-                        }}
-                        source={require('../../../image/cancel.png')}
-                    />
+                    <TouchableOpacity onPress={() => {
+                        this.setState({tukhoa: ''})
+                        alert(this.state.tukhoa)
+                    }}>
+                        <Image
+                            style={{
+                                flex: 1,
+                                marginRight: 10,
+                                height: 15,
+                                width: 15,
+                                resizeMode: 'contain'
+                            }}
+                            source={require('../../../image/cancel.png')}
+                        />
+                    </TouchableOpacity>
                 </View>
                 <FlatList
                     data={this.props.arrData}
@@ -73,4 +94,5 @@ function mapStateToProps(state) {
         arrData: state.arrayData,
     };
 }
+
 export default connect(mapStateToProps)(FlatListData);

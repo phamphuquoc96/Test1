@@ -23,9 +23,9 @@ const AppComponent = () => (
 const defaultState = {
     arrayData: arrayListData,
     arr: [],
+    arrHangDaGui: [],
     filternavigation: 'SAN_PHAM',
     titleheader: 'Sản phẩm',
-    filterFlatlist: FlatListData,
     islogin: false,
     arrDonHangDaGui: arrDonHang
 }
@@ -40,19 +40,29 @@ const reducer = (state = defaultState, action) => {
                     sl: action.sl
                 }),
             };
+        case 'GUI_HANG':
+            return {
+                ...state,
+                arrHangDaGui: state.arrHangDaGui.concat({
+                    id: state.arrHangDaGui.length + '',
+                    madh: 'M004-' + action.mdate,
+                    ngaydathang: action.mdate,
+                    thanhtien: action.mtien,
+                    donhang: action.arrdonhang
+                }),
+                arr: []
+            };
         case 'FILTER_SAN_PHAM':
             return {
                 ...state,
                 filternavigation: 'SAN_PHAM',
                 titleheader: 'Sản phẩm',
-                filterFlatlist: FlatListData
             };
         case 'FILTER_CHUA_GUI':
             return {
                 ...state,
                 filternavigation: 'CHUA_GUI',
                 titleheader: 'Đ.Hàng chưa gửi',
-                filterFlatlist: FlatListDonHang
             };
         case 'FILTER_DA_GUI':
             return {
@@ -71,8 +81,20 @@ const reducer = (state = defaultState, action) => {
             return {
                 ...state,
                 islogin: true
+            };
+        case 'TIM_KIEM':
+            if (action.tukhoa.length < 1) {
+                return {
+                    ...state,
+                    arrayData: arrayListData,
+                }
+            } else {
+                return {
+                    ...state,
+                    arrayData: state.arrayData.filter(item => item.imagename.contains(action.tukhoa))
+                }
             }
-
+            ;
         default:
             break;
     }

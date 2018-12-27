@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, Image, TextInput, View, Alert, FlatList, TouchableOpacity, ScrollView} from 'react-native';
 import NumberFormat from 'react-number-format';
+import DonHangItem from './DonHangItem'
 import {connect} from 'react-redux';
 
 class ItemDonHangDaGui extends Component {
@@ -39,7 +40,14 @@ class ItemDonHangDaGui extends Component {
                 </View>
                 <View style={{flexDirection: 'row', marginTop: 5, marginLeft: 5}}>
                     <Text style={{fontSize: 16, fontWeight: 'bold'}}>Thành tiền:</Text>
-                    <Text style={{fontSize: 16}}>{this.props.item.thanhtien}</Text>
+                    <Text style={{fontSize: 16}}>
+                        <NumberFormat
+                            value={this.props.item.thanhtien}
+                            displayType={'text'}
+                            thousandSeparator={'.'}
+                            decimalSeparator={','}
+                            renderText={value => <Text>{value} đ</Text>}/>
+                    </Text>
                 </View>
                 <View style={{
                     flexDirection: 'row',
@@ -48,6 +56,7 @@ class ItemDonHangDaGui extends Component {
                     marginRight: 5,
                     backgroundColor: '#e6e6e6',
                     height: 40,
+                    borderBottomWidth: 0.4,
                 }}>
                     <View style={{
                         flex: 2,
@@ -73,21 +82,21 @@ class ItemDonHangDaGui extends Component {
                         <Text>Sl</Text>
                     </View>
                 </View>
-                <View>
+                <View style={{marginBottom: 5}}>
                     <FlatList
                         data={this.props.item.donhang}
                         renderItem={({item, index}) => {
                             return (
-                               <View/>
+                                <DonHangItem item={item} index={index}>
+                                </DonHangItem>
                             )
                         }}
+                        keyExtractor={item => item.id}
                     >
-
                     </FlatList>
                 </View>
             </View>
         )
     }
 }
-
 export default connect()(ItemDonHangDaGui)

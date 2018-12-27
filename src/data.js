@@ -85,13 +85,29 @@ var arrDonHang = [
         "madh": "m0002-14.11.2017.001",
         "ngaydathang": "14/11/2017",
         "thanhtien": 1785000,
-        "donhang": [{
-            "mahang": "LamonT001",
-            "tendenhang": "Sữa tắm Cherry 500ml",
-            "sl": 25
-        },
+        "donhang": [
+            {
+                "mahang": "LamonT001",
+                "tendenhang": "Sữa tắm Cherry 500ml",
+                "sl": 25
+            },
             {
                 "mahang": "LamonT002",
+                "tendenhang": "Sữa tắm Mit 500ml",
+                "sl": 150
+            },
+            {
+                "mahang": "LamonT003",
+                "tendenhang": "Sữa tắm Mit 500ml",
+                "sl": 150
+            },
+            {
+                "mahang": "LamonT004",
+                "tendenhang": "Sữa tắm Mit 500ml",
+                "sl": 150
+            },
+            {
+                "mahang": "LamonT005",
                 "tendenhang": "Sữa tắm Mit 500ml",
                 "sl": 150
             },

@@ -273,11 +273,5 @@ class FlatListItem extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        arrtong: state.arr
-    };
-}
-
-export default connect(mapStateToProps)(FlatListItem);
+export default connect()(FlatListItem);
 

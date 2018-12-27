@@ -19,7 +19,7 @@ class DonHangDaGui extends Component {
 
                             </ItemDonHangDaGui>
                         )}}
-                    keyExtractor={item => item.madh}
+                    keyExtractor={item => item.id}
                 >
                 </FlatList>
             </View>
@@ -29,7 +29,8 @@ class DonHangDaGui extends Component {
 
 function mapStateToProps(state) {
     return {
-        arrData: state.arrDonHangDaGui,
+        // arrData: state.arrDonHangDaGui,
+        arrData: state.arrHangDaGui,
     };
 }
 

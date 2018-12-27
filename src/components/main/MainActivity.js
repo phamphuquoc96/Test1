@@ -63,7 +63,7 @@ class MainActivity extends Component {
                 return <FlatListDonHang/>;
                 break;
             case 'DA_GUI':
-                return null;
+                return <DonHangDaGui/>;
                 break;
             case 'THONG_TIN':
                 return null;
@@ -81,8 +81,8 @@ class MainActivity extends Component {
                         nametoview={this.props.headername}/>
                 </View>
                 <View style={{flex: 80}}>
-                    {/*{this.setFlatList()}*/}
-                    <DonHangDaGui/>
+                    {this.setFlatList()}
+                    {/*<DonHangDaGui/>*/}
                 </View>
                 <View style={{flex: 10, flexDirection: 'row'}}>
                     <View style={{
@@ -164,7 +164,9 @@ class MainActivity extends Component {
                         // backgroundColor: '#e3d7ff'
                     }}>
                         <TouchableOpacity
-                            onPress={() => {this.setfilterData('FILTER_THONG_TIN')}}
+                            onPress={() => {
+                                this.setfilterData('FILTER_THONG_TIN')
+                            }}
                             style={{flex: 1}}>
                             <View
                                 style={{
@@ -204,7 +206,8 @@ function mapStateToProps(state) {
         filterlist: state.filternavigation,
         headername: state.titleheader,
         arrtong: state.arr,
-        myFlatList: state.filterFlatlist
+        myFlatList: state.filterFlatlist,
+        arrData: state.arrHangDaGui,
     };
 }
 
