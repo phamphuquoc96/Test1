@@ -9,14 +9,15 @@ import MainActivity from './src/components/main/MainActivity';
 import LoginForm from "./src/components/LoginForm";
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
-import arrayListData from "./src/data";
+import {arrayListData, arrDonHang} from "./src/data";
 import FlatListData from './src/components/main/FlatListData';
 import FlatListDonHang from './src/components/main/FlatListDonHang';
+import DonHangDaGui from './src/components/main/DonHangDaGui';
 import MainLogin from './mainlogin';
 
 const AppComponent = () => (
     <Provider store={store}>
-       <MainLogin/>
+        <MainLogin/>
     </Provider>
 )
 const defaultState = {
@@ -25,7 +26,8 @@ const defaultState = {
     filternavigation: 'SAN_PHAM',
     titleheader: 'Sản phẩm',
     filterFlatlist: FlatListData,
-    islogin: false
+    islogin: false,
+    arrDonHangDaGui: arrDonHang
 }
 const reducer = (state = defaultState, action) => {
     switch (action.type) {
@@ -37,26 +39,27 @@ const reducer = (state = defaultState, action) => {
                     itemdonhang: arrayListData[action.key - 1],
                     sl: action.sl
                 }),
-                filterFlatlist: FlatListData
             };
         case 'FILTER_SAN_PHAM':
             return {
                 ...state,
                 filternavigation: 'SAN_PHAM',
                 titleheader: 'Sản phẩm',
-                filterFlatlist: FlatListDonHang
+                filterFlatlist: FlatListData
             };
         case 'FILTER_CHUA_GUI':
             return {
                 ...state,
                 filternavigation: 'CHUA_GUI',
                 titleheader: 'Đ.Hàng chưa gửi',
+                filterFlatlist: FlatListDonHang
             };
         case 'FILTER_DA_GUI':
             return {
                 ...state,
                 filternavigation: 'DA_GUI',
-                titleheader: 'Đ.Hàng đã gữi'
+                titleheader: 'Đ.Hàng đã gữi',
+                filterFlatlist: DonHangDaGui
             };
         case 'FILTER_THONG_TIN':
             return {
@@ -65,9 +68,9 @@ const reducer = (state = defaultState, action) => {
                 titleheader: 'Thông tin'
             };
         case 'LOGIN':
-            return{
+            return {
                 ...state,
-                islogin:true
+                islogin: true
             }
 
         default:

@@ -26,7 +26,8 @@ class mainlogin extends Component {
 
     render() {
         return (
-            this.checkislogin()
+            // this.checkislogin()
+            <MainActivity/>
         )
     }
 }

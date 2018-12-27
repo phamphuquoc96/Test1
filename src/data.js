@@ -80,4 +80,33 @@ var arrayListData = [
         "subiamgename": "cherryshower 33ml"
     },
 ]
-export default arrayListData;
+var arrDonHang = [
+    {
+        "madh": "m0002-14.11.2017.001",
+        "ngaydathang": "14/11/2017",
+        "thanhtien": 1785000,
+        "donhang": [{
+            "mahang": "LamonT001",
+            "tendenhang": "Sữa tắm Cherry 500ml",
+            "sl": 25
+        },
+            {
+                "mahang": "LamonT002",
+                "tendenhang": "Sữa tắm Mit 500ml",
+                "sl": 150
+            },
+        ]
+    },
+    {
+        "madh": "m0002-14.11.2017.002",
+        "ngaydathang": "14/11/2017",
+        "thanhtien": 1705000,
+        "donhang": [{
+            "mahang": "LamonT001",
+            "tendenhang": "Sữa tắm Cherry 500ml",
+            "sl": 5
+        }]
+    }
+]
+export {arrayListData};
+export {arrDonHang};

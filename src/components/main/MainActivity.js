@@ -3,6 +3,7 @@ import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import Hearder from './Header';
 import FlatListData from './FlatListData';
 import FlatListDonHang from './FlatListDonHang';
+import DonHangDaGui from './DonHangDaGui';
 import {connect} from 'react-redux';
 
 
@@ -80,9 +81,8 @@ class MainActivity extends Component {
                         nametoview={this.props.headername}/>
                 </View>
                 <View style={{flex: 80}}>
-
-                    {this.setFlatList()}
-
+                    {/*{this.setFlatList()}*/}
+                    <DonHangDaGui/>
                 </View>
                 <View style={{flex: 10, flexDirection: 'row'}}>
                     <View style={{
