@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, Image, TextInput, View, Alert, FlatList, TouchableOpacity, ScrollView} from 'react-native';
-import arrayListData from '../../data';
 import {connect} from 'react-redux';
 import FlatListItem from './FlatListItem';
 

@@ -1,109 +1,216 @@
-import React from 'react';
-import {View, Text, Image} from 'react-native';
+import React, {Component} from 'react';
+import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import Hearder from './Header';
 import FlatListData from './FlatListData';
-import arrayListData from '../../data';
-import {createStore} from 'redux';
-import {Provider} from 'react-redux';
+import FlatListDonHang from './FlatListDonHang';
+import {connect} from 'react-redux';
+
 
 //create componets
-const MainActivity = () => {
-    return (
-        <Provider store={store}>
+class MainActivity extends Component {
+    setcolor(statusname) {
+        const {filterlist} = this.props;
+        if (statusname === filterlist) {
+            return {
+                color: '#ff9c10',
+                fontSize: 10,
+                marginTop: 5
+            }
+        } else {
+            return styles.buttonStyle;
+        }
+    }
+
+    setsrcforimage(imagename, statusname) {
+        const {filterlist} = this.props;
+        if (statusname === filterlist) {
+            switch (filterlist) {
+                case 'SAN_PHAM':
+                    return require('../../../image/gift_ischeck.png');
+                    break;
+                case 'CHUA_GUI':
+                    return require('../../../image/shopping_ischeck.png');
+                    break;
+                case 'DA_GUI':
+                    return require('../../../image/clipboard_ischeck.png');
+                    break;
+                case 'THONG_TIN':
+                    return require('../../../image/man_ischeck.png');
+                    break;
+                default :
+                    return imagename;
+                    break;
+            }
+        } else {
+            return imagename;
+        }
+    }
+
+    setfilterData(actitonType) {
+        this.props.dispatch({
+            type: actitonType
+        });
+    }
+
+    setFlatList() {
+        const {filterlist} = this.props;
+        switch (filterlist) {
+            case 'SAN_PHAM':
+                return <FlatListData/>;
+                break;
+            case 'CHUA_GUI':
+                return <FlatListDonHang/>;
+                break;
+            case 'DA_GUI':
+                return null;
+                break;
+            case 'THONG_TIN':
+                return null;
+                break;
+            default :
+                break;
+        }
+    }
+
+    render() {
+        return (
             <View style={{flex: 1, flexDirection: 'column'}}>
                 <View style={{flex: 10}}>
                     <Hearder
-                        nametoview={'Sản phẩm'}/>
+                        nametoview={this.props.headername}/>
                 </View>
                 <View style={{flex: 80}}>
-                    <FlatListData/>
+
+                    {this.setFlatList()}
+
                 </View>
                 <View style={{flex: 10, flexDirection: 'row'}}>
                     <View style={{
                         flex: 25,
                         // backgroundColor: '#34ffd8'
                     }}>
-                        <View
-                            style={{flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-                            <Image
+                        <TouchableOpacity
+                            onPress={() => this.setfilterData('FILTER_SAN_PHAM')}
+                            style={{flex: 1}}>
+                            <View
                                 style={{
-                                    width: 30,
-                                    height: 30
-                                }}
-                                source={require('../../../image/gift_ischeck.png')}/>
-                            <Text style={{color: '#ff9c10', fontSize: 10, marginTop: 5}}>Sản phẩm</Text>
-                        </View>
+                                    flex: 1,
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}>
+                                <Image
+                                    style={{
+                                        width: 30,
+                                        height: 30
+                                    }}
+                                    source={this.setsrcforimage(require('../../../image/gift.png'), 'SAN_PHAM')}/>
+                                <Text style={this.setcolor('SAN_PHAM')}>Sản phẩm</Text>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                     <View style={{
                         flex: 25,
                         // backgroundColor: '#ff6296'
                     }}>
-                        <View
-                            style={{flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-                            <Image
+                        <TouchableOpacity
+                            onPress={() => {
+                                this.setfilterData('FILTER_CHUA_GUI')
+                            }}
+                            style={{flex: 1}}>
+                            <View
                                 style={{
-                                    width: 30,
-                                    height: 30
-                                }}
-                                source={require('../../../image/shopping.png')}/>
-                            <Text style={{color: '#000000', fontSize: 10, marginTop: 5}}>Đ.Hàng chưa gửi</Text>
-                        </View>
+                                    flex: 1,
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}>
+                                <Image
+                                    style={{
+                                        width: 30,
+                                        height: 30
+                                    }}
+                                    source={this.setsrcforimage(require('../../../image/shopping.png'), 'CHUA_GUI')}/>
+                                <Text style={this.setcolor('CHUA_GUI')}>Đ.Hàng chưa gửi</Text>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                     <View style={{
                         flex: 25,
                         // backgroundColor: '#cb43ff'
                     }}>
-                        <View
-                            style={{flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-                            <Image
+                        <TouchableOpacity
+                            onPress={() => this.setfilterData('FILTER_DA_GUI')}
+                            style={{flex: 1}}>
+                            <View
                                 style={{
-                                    width: 30,
-                                    height: 30
-                                }}
-                                source={require('../../../image/clipboard.png')}/>
-                            <Text style={{color: '#000000', fontSize: 10, marginTop: 5}}>Đ.Hàng đã gửi</Text>
-                        </View>
+                                    flex: 1,
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}>
+                                <Image
+                                    style={{
+                                        width: 30,
+                                        height: 30
+                                    }}
+                                    source={this.setsrcforimage(require('../../../image/clipboard.png'), 'DA_GUI')}/>
+                                <Text style={this.setcolor('DA_GUI')}>Đ.Hàng đã gửi</Text>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                     <View style={{
                         flex: 25,
                         // backgroundColor: '#e3d7ff'
                     }}>
-                        <View
-                            style={{flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-                            <Image
+                        <TouchableOpacity
+                            onPress={() => {this.setfilterData('FILTER_THONG_TIN')}}
+                            style={{flex: 1}}>
+                            <View
                                 style={{
-                                    width: 30,
-                                    height: 30
-                                }}
-
-                                source={require('../../../image/man.png')}/>
-                            <Text style={{color: '#000000', fontSize: 10, marginTop: 5}}>Thông tin</Text>
-                        </View>
+                                    flex: 1,
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}>
+                                <Image
+                                    style={{
+                                        width: 30,
+                                        height: 30
+                                    }}
+                                    source={this.setsrcforimage(require('../../../image/man.png'), 'THONG_TIN')}/>
+                                <Text style={this.setcolor('THONG_TIN')}>Thông tin</Text>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>
-        </Provider>
-    )
+        )
+    }
 }
 
-const defaultState = {
-    arrayData: arrayListData,
-    arr: []
+const
+    styles = StyleSheet.create
+    ({
+        buttonStyle: {
+            color: '#000000',
+            fontSize: 10,
+            marginTop: 5
+        },
+    })
+
+function mapStateToProps(state) {
+    return {
+        filterlist: state.filternavigation,
+        headername: state.titleheader,
+        arrtong: state.arr,
+        myFlatList: state.filterFlatlist
+    };
 }
-const reducer = (state = defaultState, action) => {
-    switch (action.type) {
-        case 'DAT_HANG':
-            return {
-                ...state,
-                arr: state.arr.concat({
-                    key: action.key,
-                    sl: action.sl
-                })
-            };
-        default:
-            break;
-    }
-    return state
-}
-const store = createStore(reducer)
-export default MainActivity;
+
+export default connect(mapStateToProps)
+
+(
+    MainActivity
+)
+;

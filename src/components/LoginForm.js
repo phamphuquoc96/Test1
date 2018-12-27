@@ -1,10 +1,17 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet, TextInput} from 'react-native';
 import {Button} from './Button';
+import {connect} from 'react-redux';
 
-export default class LoginForm extends Component {
+class LoginForm extends Component {
     constructor(props) {
         super(props);
+    }
+
+    loginSuccess() {
+        this.props.dispatch({
+            type: 'LOGIN'
+        })
     }
 
     state = {email: '', status: '', colorOfTextText: '#000000'};
@@ -16,7 +23,8 @@ export default class LoginForm extends Component {
         const {email} = this.state;
 
         if (email == 'M004') {
-            this.setState({status: 'Success'})
+            this.setState({status: 'Success'}),
+                this.loginSuccess()
         }
         else {
             this.setState({status: 'Mã khách hàng không chính '})
@@ -72,6 +80,7 @@ export default class LoginForm extends Component {
         )
     }
 }
+
 const styles = {
     errorStyle: {
         fontSize: 15,
@@ -93,3 +102,9 @@ const style = StyleSheet.create({
         marginTop: 200,
     }
 })
+
+function mapStateToProps(state) {
+    return {};
+}
+
+export default connect(mapStateToProps)(LoginForm)

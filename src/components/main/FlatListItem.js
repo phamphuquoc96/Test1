@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, Image, TextInput, View, Alert, FlatList, TouchableOpacity, ScrollView} from 'react-native';
-import arrayListData from '../../data';
+import NumberFormat from 'react-number-format';
 import {connect} from 'react-redux';
 
 class FlatListItem extends Component {
@@ -13,9 +13,11 @@ class FlatListItem extends Component {
 
     datHang() {
         this.props.dispatch({
-            type: 'DAT_HANG',
-        });
-        // alert(this.state.soluong +'   '+ this.props.item.key);
+                type: 'DAT_HANG',
+                key: this.props.item.key,
+                sl: this.state.soluong,
+            }
+        )
     }
 
     render() {
@@ -86,7 +88,12 @@ class FlatListItem extends Component {
                                 fontSize: 30,
                                 marginRight: 15,
                             }}>
-                                {this.props.item.price}
+                                <NumberFormat
+                                    value={this.props.item.price}
+                                    displayType={'text'}
+                                    thousandSeparator={'.'}
+                                    decimalSeparator={','}
+                                    renderText={value => <Text>{value} đ</Text>}/>
                             </Text>
                         </View>
                         <View style={{
@@ -124,7 +131,6 @@ class FlatListItem extends Component {
                                     <TouchableOpacity
                                         onPress={() => {
                                             if (this.state.soluong < 2) {
-
                                             } else {
                                                 this.setState({soluong: this.state.soluong - 1})
                                             }
@@ -223,15 +229,7 @@ class FlatListItem extends Component {
                 }}>
 
                     <TouchableOpacity
-                        // onPress={() => {
-                        //     alert(this.props.item.price + ' so luong' + this.state.soluong)
-                        // }}
-                        onPress={() => this.props.dispatch({
-                            type: 'DAT_HANG',
-                            key: this.props.item.key,
-                            sl: this.state.soluong,
-                        }, alert(JSON.stringify(this.props.arrtong))
-                        )}
+                        onPress={() => this.datHang()}
                         style={{
                             flex: 1,
                             justifyContent: 'center',
@@ -277,7 +275,6 @@ class FlatListItem extends Component {
 
 function mapStateToProps(state) {
     return {
-        arrData: state.arrayData,
         arrtong: state.arr
     };
 }
