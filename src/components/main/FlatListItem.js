@@ -20,6 +20,32 @@ class FlatListItem extends Component {
         )
     }
 
+    gettenhangkhuyenmai(idhang) {
+        for (let dataobj of this.props.arrData) {
+            if (dataobj.id === idhang) {
+                return dataobj.name;
+                break;
+            }
+        }
+    }
+
+    geturlimagehangkhuyenmai(idhang) {
+        for (let dataobj of this.props.arrData) {
+            if (dataobj.id === idhang) {
+                return dataobj.product_image;
+                break;
+            }
+        }
+    }
+
+    isKhuyenmai(idhang) {
+        if (idhang === 'null') {
+            return '';
+        } else {
+            return 'KM : ';
+        }
+    }
+
     render() {
         return (
             <View style={{
@@ -50,14 +76,21 @@ class FlatListItem extends Component {
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}>
-                        <Image
-                            style={{
-                                flex: 1,
-                                width: 290,
-                                height: 290,
-                            }}
-                            source={require('../../../image/oliveshower1.png')}
-                        />
+                        <View style={{
+                            flex: 1,
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}>
+                            <Image
+                                style={{
+                                    flex: 1,
+                                    width: 150,
+                                    height: 150,
+                                    resizeMode: 'contain'
+                                }}
+                                source={{uri: 'https://lamont.pogofdev.net' + this.props.item.product_image}}
+                            />
+                        </View>
                     </View>
                     <View style={{
                         flex: 65,
@@ -74,7 +107,7 @@ class FlatListItem extends Component {
                                 fontSize: 20,
                                 marginRight: 15,
                             }}>
-                                {this.props.item.imagename}
+                                {this.props.item.name}
                             </Text>
                         </View>
                         <View style={{
@@ -118,8 +151,9 @@ class FlatListItem extends Component {
                                         style={{
                                             width: 110,
                                             height: 110,
+                                            resizeMode: 'contain'
                                         }}
-                                        source={require('../../../image/oliveshower1.png')}
+                                        source={{uri: 'https://lamont.pogofdev.net' + this.geturlimagehangkhuyenmai(this.props.item.product_promotion_id + '')}}
                                     />
                                 </View>
                                 <View style={{
@@ -208,7 +242,10 @@ class FlatListItem extends Component {
                                     justifyContent: 'center',
                                     marginBottom: 30
                                 }}>
-                                    <Text style={{color: '#ff0c03', fontSize: 18}}>KM: </Text>
+                                    <Text style={{
+                                        color: '#ff0c03',
+                                        fontSize: 18
+                                    }}>{this.isKhuyenmai(this.props.item.product_promotion_id + '')}</Text>
                                 </View>
                                 <View style={{
                                     flex: 85,
@@ -217,7 +254,10 @@ class FlatListItem extends Component {
                                     justifyContent: 'center',
                                     marginBottom: 30
                                 }}>
-                                    <Text style={{color: '#000000', fontSize: 18}}>{this.props.item.subiamgename}</Text>
+                                    <Text style={{
+                                        color: '#000000',
+                                        fontSize: 18
+                                    }}>{this.gettenhangkhuyenmai(this.props.item.product_promotion_id + '')}</Text>
                                 </View>
                             </View>
                         </View>
@@ -273,5 +313,11 @@ class FlatListItem extends Component {
     }
 }
 
-export default connect()(FlatListItem);
+function mapStateToProps(state) {
+    return {
+        arrData: state.arrayDataServer,
+    };
+}
+
+export default connect(mapStateToProps)(FlatListItem);
 

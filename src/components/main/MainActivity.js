@@ -1,14 +1,19 @@
 import React, {Component} from 'react';
-import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, Text, Image, TouchableOpacity, StyleSheet, ImageBackground} from 'react-native';
 import Hearder from './Header';
 import FlatListData from './FlatListData';
 import FlatListDonHang from './FlatListDonHang';
 import DonHangDaGui from './DonHangDaGui';
+import {getDataFromServer} from '../../Networking/Server'
 import {connect} from 'react-redux';
 
 
 //create componets
 class MainActivity extends Component {
+    constructor(props){
+        super(props);
+        this.state=({})
+    }
     setcolor(statusname) {
         const {filterlist} = this.props;
         if (statusname === filterlist) {
@@ -72,7 +77,6 @@ class MainActivity extends Component {
                 break;
         }
     }
-
     render() {
         return (
             <View style={{flex: 1, flexDirection: 'column'}}>
@@ -118,6 +122,7 @@ class MainActivity extends Component {
                                 this.setfilterData('FILTER_CHUA_GUI')
                             }}
                             style={{flex: 1}}>
+
                             <View
                                 style={{
                                     flex: 1,
@@ -125,12 +130,26 @@ class MainActivity extends Component {
                                     alignItems: 'center',
                                     justifyContent: 'center'
                                 }}>
+                                <View style={{
+                                    alignSelf:'flex-end',
+                                    backgroundColor: '#ff0c03',
+                                    height: 20,
+                                    width: 20,
+                                    alignItems:'center',
+                                    justifyContent:'center',
+                                    borderTopLeftRadius:50,
+                                    borderTopRightRadius:50,
+                                    borderBottomLeftRadius:50,
+                                    borderBottomRightRadius:50
+                                }}><Text style={{color:'#ffffff', fontSize:12, fontWeight:'bold'}}>2</Text></View>
                                 <Image
                                     style={{
                                         width: 30,
                                         height: 30
                                     }}
-                                    source={this.setsrcforimage(require('../../../image/shopping.png'), 'CHUA_GUI')}/>
+                                    source={this.setsrcforimage(require('../../../image/shopping.png'), 'CHUA_GUI')}>
+
+                                </Image>
                                 <Text style={this.setcolor('CHUA_GUI')}>Đ.Hàng chưa gửi</Text>
                             </View>
                         </TouchableOpacity>
@@ -154,7 +173,8 @@ class MainActivity extends Component {
                                         width: 30,
                                         height: 30
                                     }}
-                                    source={this.setsrcforimage(require('../../../image/clipboard.png'), 'DA_GUI')}/>
+                                    source={this.setsrcforimage(require('../../../image/clipboard.png'), 'DA_GUI')}>
+                                </Image>
                                 <Text style={this.setcolor('DA_GUI')}>Đ.Hàng đã gửi</Text>
                             </View>
                         </TouchableOpacity>

@@ -28,6 +28,7 @@ class mainlogin extends Component {
         return (
             // this.checkislogin()
             <MainActivity/>
+        // <Login/>
         )
     }
 }

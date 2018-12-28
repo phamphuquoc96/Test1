@@ -2,13 +2,27 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, Image, TextInput, View, Alert, FlatList, TouchableOpacity, ScrollView} from 'react-native';
 import {connect} from 'react-redux';
 import FlatListItem from './FlatListItem';
+import {getDataFromServer} from "../../Networking/Server";
 
 class FlatListData extends Component {
     constructor(props) {
         super(props)
         this.state = {
             tukhoa: '',
+            datafromserver: []
         };
+    }
+
+    componentDidMount() {
+        getDataFromServer().then((data) => {
+            this.setState({datafromserver: data})
+            this.props.dispatch({
+                type: 'LOAD_DATA_FROM_SERVER',
+                arrdataserver: data
+            })
+        }).catch((error) => {
+            this.setState({datafromserver: []})
+        })
     }
 
     tikiem(tukhoa) {
@@ -74,6 +88,7 @@ class FlatListData extends Component {
                 </View>
                 <FlatList
                     data={this.props.arrData}
+                    // data={this.state.datafromserver}
                     renderItem={({item, index}) => {
                         return (
                             <FlatListItem item={item} index={index}>
@@ -81,6 +96,7 @@ class FlatListData extends Component {
                             </FlatListItem>
                         );
                     }}
+                    keyExtractor={item => item.id}
                 >
 
                 </FlatList>
@@ -91,7 +107,7 @@ class FlatListData extends Component {
 
 function mapStateToProps(state) {
     return {
-        arrData: state.arrayData,
+        arrData: state.arrayDataServer,
     };
 }
 

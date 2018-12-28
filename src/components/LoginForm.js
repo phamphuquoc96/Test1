@@ -2,10 +2,17 @@ import React, {Component} from 'react';
 import {Text, View, StyleSheet, TextInput} from 'react-native';
 import {Button} from './Button';
 import {connect} from 'react-redux';
+import {getDataFromServer, loginserver} from '../Networking/Server';
 
 class LoginForm extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            email: '',
+            status: '',
+            colorOfTextText: '#000000',
+            datalogin: [],
+        };
     }
 
     loginSuccess() {
@@ -14,25 +21,31 @@ class LoginForm extends Component {
         })
     }
 
-    state = {email: '', status: '', colorOfTextText: '#000000'};
+
+    logintoserver(mycode) {
+        loginserver(mycode).then((data) => {
+            {
+                if (data.status === 'SUCCESSED') {
+                    this.setState({status: data.data.user.name})
+                    this.loginSuccess()
+                } else {
+                    this.setState({status: data.error})
+                }
+            }
+            this.setState({datalogin: data})
+        }).catch((error) => {
+            this.setState({datalogin: []})
+        });
+
+    }
+
 
     onButtonPress() {
         console.log("pressed");
         console.log(this.state.email);
 
-        const {email} = this.state;
+        this.logintoserver(this.state.email);
 
-        if (email == 'M004') {
-            this.setState({status: 'Success'}),
-                this.loginSuccess()
-        }
-        else {
-            this.setState({status: 'Mã khách hàng không chính '})
-        }
-        ;
-        this.setState({
-            email: '',
-        });
     }
 
     renderButton() {
